@@ -7,8 +7,12 @@ metadata:
   labels: {{- include "longhorn.labels" . | nindent 4 }}
 provisioner: driver.longhorn.io
 allowVolumeExpansion: true
+reclaimPolicy: "{{ .Values.persistence.reclaimPolicy }}"
 parameters:
   numberOfReplicas: "{{ .Values.persistence.defaultClassReplicaCount }}"
   staleReplicaTimeout: "30"
   fromBackup: ""
   baseImage: ""
+  {{- if .Values.recurringJobs.enable }}
+  recurringJobs: '{{ .Values.recurringJobs.jobsList | toPrettyJson | indent 2 | trim }}'
+  {{- end }}

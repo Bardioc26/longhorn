@@ -48,6 +48,15 @@ service:
 persistence:
   defaultClass: true
   defaultClassReplicaCount: 3
+  reclaimPolicy: Delete
+
+recurringJobs:
+  enable: false
+  jobsList: []
+    # - name: snap
+    #   task: snapshot
+    #   cron: '*/1 * * * *'
+    #   retain: 1
 
 csi:
   kubeletRootDir: ~
